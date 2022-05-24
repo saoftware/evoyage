@@ -22,15 +22,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Route d'authentification
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
-
+// Route::post('auth/login', [AuthController::class, 'authenticate']);
+// Route::post('auth/register', [AuthController::class, 'register']);
+Route::group(['middleware' => 'api'], function() {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/profile', [AuthController::class, 'profile']);
+});
 
 // Route des catégories de cars
 Route::get('/categories', [CategoriesController::class, 'index']);
 Route::post('/categories/create', [CategoriesController::class, 'store']);
-Route::get('/categories/detail/{id}', [CategoriesController::class, 'show']);
 Route::put('/categories/update/{id}', [CategoriesController::class, 'update']);
 Route::delete('/categories/delete/{id}', [CategoriesController::class, 'destroy']);
 Route::get('/categories/search', [CategoriesController::class, 'search']);
@@ -38,7 +41,6 @@ Route::get('/categories/search', [CategoriesController::class, 'search']);
 // Route des villes
 Route::get('/villes', [VillesController::class, 'index']);
 Route::post('/villes/create', [VillesController::class, 'store']);
-Route::get('/villes/detail/{id}', [VillesController::class, 'show']);
 Route::put('/villes/update/{id}', [VillesController::class, 'update']);
 Route::delete('/villes/delete/{id}', [VillesController::class, 'destroy']);
 Route::get('/villes/search', [VillesController::class, 'search']);
@@ -46,7 +48,6 @@ Route::get('/villes/search', [VillesController::class, 'search']);
 // Route des pays
 Route::get('/pays', [PaysController::class, 'index']);
 Route::post('/pays/create', [PaysController::class, 'store']);
-Route::get('/pays/detail/{id}', [PaysController::class, 'show']);
 Route::put('/pays/update/{id}', [PaysController::class, 'update']);
 Route::delete('/pays/delete/{id}', [PaysController::class, 'destroy']);
 Route::get('/pays/search', [PaysController::class, 'search']);
@@ -54,7 +55,6 @@ Route::get('/pays/search', [PaysController::class, 'search']);
 // Route des horaires
 Route::get('/horaires', [HorairesController::class, 'index']);
 Route::post('/horaires/create', [HorairesController::class, 'store']);
-Route::get('/horaires/detail/{id}', [HorairesController::class, 'show']);
 Route::put('/horaires/update/{id}', [HorairesController::class, 'update']);
 Route::delete('/horaires/delete/{id}', [HorairesController::class, 'destroy']);
 Route::get('/horaires/search', [HorairesController::class, 'search']);
@@ -62,7 +62,6 @@ Route::get('/horaires/search', [HorairesController::class, 'search']);
 // Route des cars
 Route::get('/cars', [CarsController::class, 'index']);
 Route::post('/cars/create', [CarsController::class, 'store']);
-Route::get('/cars/detail/{id}', [CarsController::class, 'show']);
 Route::put('/cars/update/{id}', [CarsController::class, 'update']);
 Route::delete('/cars/delete/{id}', [CarsController::class, 'destroy']);
 Route::get('/cars/search', [CarsController::class, 'search']);

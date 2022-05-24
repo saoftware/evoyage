@@ -27,12 +27,12 @@ class VillesController extends Controller
 
         if(!empty($lesVilles))
         {
-           return response()->json(['data' => $lesVilles], Response::HTTP_OK);
+           return response()->json(['data' => $lesVilles], 200);
         }
         else
         {
             $msg = "Aucun Item disponible";
-           return response()->json(["msg" => $msg], Response::HTTP_NOT_FOUND);
+           return response()->json(["msg" => $msg], 400);
         }
 
     }

@@ -32,12 +32,12 @@ class PaysController extends Controller
 
         if(!empty($lesPays))
         {
-           return response()->json(['data' => $lesPays], Response::HTTP_OK);
+           return response()->json(['data' => $lesPays], 200);
         }
         else
         {
             $msg = "Aucun Item disponible";
-           return response()->json(["msg" => $msg], Response::HTTP_NOT_FOUND);
+           return response()->json(["msg" => $msg], 400);
         }
 
     }
@@ -51,8 +51,10 @@ class PaysController extends Controller
      */
     public function store(Request $request)
     {
+        $pays = Pays::where('nomPays', $request->nomPays)->first();
+     
         if(empty($request->nomPays)){
-            return response()->json(["Veillez entrer le nom du pays"], Response::HTTP_NOT_FOUND);
+            return response()->json(["Veillez entrer le nom du pays"], 400);
         }
         else{
             $Ville = Pays::create($request->all());
